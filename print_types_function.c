@@ -19,68 +19,61 @@ int write_characters(va_list var_types, char buffer[],
 	return (write_char(c, buffer, all_flags, widths, P, size));
 
 }
-
-/************************* string printing *************************/
+/************************* PRINT A STRING *************************/
 /**
  * strings - Prints a string
- * @var_types: List of arguments
+ * @types: List a of arguments
  * @buffer: Buffer array to handle print
- * @all_flags: Calculates active flags
- * @width: Get width.
- * @P: Precision specification
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
  * @size: Size specifier
  * Return: Number of chars printed
  */
-int strings(va_list var_types, char buffer[],
-		int all_flags, int width, int P, int size)
+int strings(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int Len = 0, count;
-	char *string = va_arg(var_types, char *);
+	int length = 0, i;
+	char *str = va_arg(types, char *);
 
 	UNUSED(buffer);
-	UNUSED(all_flags);
+	UNUSED(flags);
 	UNUSED(width);
-	UNUSED(P);
+	UNUSED(precision);
 	UNUSED(size);
-
-	if (string == NULL)
+	if (str == NULL)
 	{
-		string = "(null)";
-		if (P >= 6)
-			string = "      ";
+		str = "(null)";
+		if (precision >= 6)
+			str = "      ";
 	}
-	for (count = 0; string[count] != '\0'; count++)
-		Len++;
-	count = 0;
-	while (string[count] != '\0' && count < P)
-		count++;
-		Len = count;
-		if (width > Len)
+
+	while (str[length] != '\0')
+		length++;
+
+	if (precision >= 0 && precision < length)
+		length = precision;
+
+	if (width > length)
+	{
+		if (flags & F_MINUS)
 		{
-			if (all_flags & NO_FLAGS)
-			{
-				count = 0;
-				while (count < width - Len)
-				{
-					write(1, " ", 1);
-					count++;
-				}
-				write(1, string, Len);
-				return (width);
-			}
-			else
-			{
-				for (count = width - Len; count > 0; count--)
-					write(1, " ", 1);
-					write(1, string, Len);
-			return width;
-			}
+			write(1, &str[0], length);
+			for (i = width - length; i > 0; i--)
+				write(1, " ", 1);
+			return (width);
 		}
+		else
+		{
+			for (i = width - length; i > 0; i--)
+				write(1, " ", 1);
+			write(1, &str[0], length);
+			return (width);
+		}
+	}
 
-		return write(1, string, Len);
+		return (write(1, str, length));
 }
-
-#include "main.h"
 
 /************************* PRINT PERCENT SIGN *************************/
 /**
@@ -95,7 +88,7 @@ int strings(va_list var_types, char buffer[],
  * Return: Number of chars printed
  */
 int print_percent_sign(va_list var_types, char buffer[],
-        int all_flags, int width, int P, int size)
+		int all_flags, int width, int P, int size)
 {
 	UNUSED(var_types);
 	UNUSED(buffer);
@@ -120,7 +113,7 @@ int print_percent_sign(va_list var_types, char buffer[],
  * Return: Number of chars printed
  */
 int print_integer(va_list var_types, char buffer[],
-             int all_flags, int width, int P, int size)
+		int all_flags, int width, int P, int size)
 {
 	int count = BUFFER_Z - 2;
 	int neg_Num = 0;
@@ -180,6 +173,7 @@ int Binary(va_list var_types, char buffer[],
 	unsigned int array[32];
 	int count = 0;
 	int i;
+	char z;
 
 	UNUSED(buffer);
 	UNUSED(all_flags);
@@ -206,7 +200,8 @@ int Binary(va_list var_types, char buffer[],
 		sum += array[i];
 		if (sum || i == 31)
 		{
-			char z = '0' + array[i];
+			z = '0' + array[i];
+
 			write(1, &z, 1);
 			count++;
 	}
