@@ -16,7 +16,7 @@ int numerals(char c)
 #include "main.h"
 
 /**
- * size-conversion - Casts a number to the specified type
+ * size_conversion - Casts a number to the specified type
  * @number: Number to be casted.
  * @size: Type indicating the type to be casted.
  *
