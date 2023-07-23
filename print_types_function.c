@@ -56,7 +56,7 @@ int strings(va_list types, char buffer[],
 
 	if (width > length)
 	{
-		if (flags & F_MINUS)
+		if (flags & NO_FLAGS)
 		{
 			write(1, &str[0], length);
 			for (i = width - length; i > 0; i--)
@@ -123,25 +123,22 @@ int print_integer(va_list var_types, char buffer[],
 	nums = size_conversion(nums, size);
 
 	if (nums == 0)
+	{
 		buffer[count--] = '0';
-
 		buffer[BUFFER_Z - 1] = '\0';
 		num = (unsigned long int)nums;
-
+	}
 	if (nums < 0)
 	{
 		num = (unsigned long int)((-1) * nums);
 		neg_Num = 1;
 	}
-
 	while (num > 0)
 	{
 		buffer[count--] = (num % 10) + '0';
 		num /= 10;
 	}
-
 	count++;
-
 
 	switch (all_flags)
 	{

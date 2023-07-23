@@ -27,7 +27,7 @@
 */
 struct format
 {
-	char fmt;
+	char format;
 	int (*function_pointer)(va_list, char[], int, int, int, int);
 };
 

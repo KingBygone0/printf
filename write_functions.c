@@ -89,14 +89,13 @@ int write_num(int ind, char buffer[], int flags,
 /**
  * unsgnd - Writes an unsigned number with specified width and precision.
  *
- * @is_negative: Flag indicating if the number is negative (not used in this function).
- * ind: Index at which the number starts in the buffer.
- * flags: Flags used for formatting (e.g., ZERO_FLAGS, NO_FLAGS).
- * width: Width specifier for formatting.
- * precision: Precision specifier for formatting
- * size: Size specifier (not used in this function).
- * @number: Unsigned number to be printed.
- * buffer: Buffer containing starts in the buffer.
+ * @is_negative: Flag indicating if the number is negative
+ * @ind: Index at which the number starts in the buffer.
+ * @flags: Flags used for formatting (e.g., ZERO_FLAGS, NO_FLAGS).
+ * @width: Width specifier for formatting.
+ * @precision: Precision specifier for formatting
+ * @size: Size specifier (not used in this function).
+ * @buffer: Buffer containing starts in the buffer.
  *
  * Return: Number of written characters.
  */
@@ -138,18 +137,17 @@ int unsgnd(int is_negative, int ind, char buffer[],
 
 /**
  * write_pointer - Write a memory address with specified width and precision
- * @pointer: Pointer to be printed
- * @all_flags: Flags specifier
+ * @flags: Flags specifier
  * @width: Width specifier
- * @P: Precision specifier
+ * @buffer: buffer
+ * @ind: indicator
+ * @length: the length
+ * @padd: padding
+ * @extra_c: extra char
+ * @padd_start: where padding starts
  *
  * Return: Number of written chars.
  */
-#include <unistd.h>
-
-#define BUFF_SIZE 100
-#define F_MINUS 2
-
 int write_pointer(char buffer[], int ind, int length, int width,
 		int flags, char padd, char extra_c, int padd_start)
 {
@@ -166,7 +164,7 @@ int write_pointer(char buffer[], int ind, int length, int width,
 			buffer[--ind] = '0';
 			if (extra_c)
 				buffer[--ind] = extra_c;
-			if (flags & F_MINUS)
+			if (flags & NO_FLAGS)
 				/* Assign extra char to the left of buffer */
 				return (write(1, &buffer[ind],
 							length) + write(1, &buffer[3], i - 3));
@@ -189,7 +187,7 @@ int write_pointer(char buffer[], int ind, int length, int width,
 	buffer[--ind] = '0';
 	if (extra_c)
 		buffer[--ind] = extra_c;
-	return (write(1, &buffer[ind], BUFF_SIZE - ind - 1));
+	return (write(1, &buffer[ind], BUFFER_Z - ind - 1));
 }
 
 /**
@@ -217,14 +215,14 @@ int write_char(char c, char buffer[],
 	buffer[i] = '\0';
 	if (width > 1)
 	{
-		buffer[BUFF_SIZE - 1] = '\0';
+		buffer[BUFFER_Z - 1] = '\0';
 		for (i = 0; i < width - 1; i++)
-			buffer[BUFF_SIZE - i - 2] = padd;
-		if (flags & F_MINUS)
+			buffer[BUFFER_Z - i - 2] = padd;
+		if (flags & NO_FLAGS)
 			return (write(1, &buffer[0], 1) +
-					write(1, &buffer[BUFF_SIZE - i - 1], width - 1));
+					write(1, &buffer[BUFFER_Z - i - 1], width - 1));
 		else
-			return (write(1, &buffer[BUFF_SIZE - i - 1],
+			return (write(1, &buffer[BUFFER_Z - i - 1],
 						width - 1) + write(1, &buffer[0], 1));
 	}
 	return (write(1, &buffer[0], 1));

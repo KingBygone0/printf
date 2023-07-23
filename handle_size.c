@@ -26,7 +26,8 @@ int get_size(const char *format, int *count)
 	}
 
 	if (size != 0)
+	{
 		*count = current;
-
+	}
 		return (size);
 }
