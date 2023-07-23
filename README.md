@@ -28,4 +28,4 @@ The main components of this project are as follows:
 - sizeof: This file contains a function used to determine the size of a data type.
 
 ## Contributors
-This project was developed by Nana Akosua and King Bygone.
+This project was developed by Nana Akosua and Isaac Annor.
