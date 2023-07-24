@@ -246,4 +246,5 @@ int write_unsgnd(int is_negative, int ind,
 	}
 
 	return (write(1, &buffer[ind], length));
+	//end fo code//
 }
