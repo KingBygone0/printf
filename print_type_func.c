@@ -184,4 +184,3 @@ int print_binary(va_list var_types, char buffer[],
 	/* return the count of the binary. */
 	return (count);
 }
-
