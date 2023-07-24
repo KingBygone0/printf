@@ -31,4 +31,5 @@ int get_flags(const char *format, int *itt)
 	*itt = curr_i - 1;
 
 	return (f);
+	return*new
 }
