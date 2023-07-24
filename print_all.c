@@ -48,4 +48,3 @@ int handle_print(const char *fmt, int *ind, va_list arguments, char buffer[],
 	}
 	return (printed_chars);
 }
-
