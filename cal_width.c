@@ -32,5 +32,5 @@ int get_width(const char *format, int *itt, va_list var_types)
 
 	*itt = current_itt - 1;
 
-	return (w)
+	return (w);
 }
