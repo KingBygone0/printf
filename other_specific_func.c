@@ -103,10 +103,11 @@ int print_non_printable(va_list var_types, char buffer[],
  * Return: Numbers of chars printed
  */
 int print_reverse(va_list var_types, char buffer[],
-	int f, int w, int P, int Z)
+	int f, int w, int Prec, int Z)
 {
 	char *string;
-	int itt, count = 0;
+	int i, count = 0;
+	char z;
 
 	UNUSED(buffer);
 	UNUSED(f);
@@ -117,20 +118,26 @@ int print_reverse(va_list var_types, char buffer[],
 
 	if (string == NULL)
 	{
-		UNUSED(P);
-
+		UNUSED(Prec);
 		string = ")Null(";
 	}
-	for (itt = 0; string[itt]; itt++)
+
+	/*Calculate the length of the string*/
+	for (i = 0; string[i]; i++)
 		;
 
-	for (itt = itt - 1; itt >= 0; itt--)
-	{
-		char ex_char = string[itt];
+	/* Adjust precision if it exceeds the length of the string*/
+	if (Prec > i)
+	Prec = i;
 
-		write(1, &ex_char, 1);
+	/* Print the reversed string up to the specified precision*/
+	for (i = Prec - 1; i >= 0; i--)
+	{
+		z = string[i];
+		_putchar(z); /*Assuming you want to print to standard output (stdout)*/
 		count++;
 	}
+
 	return (count);
 }
 
