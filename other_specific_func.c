@@ -103,35 +103,35 @@ int print_non_printable(va_list var_types, char buffer[],
  * Return: Numbers of chars printed
  */
 int print_reverse(va_list var_types, char buffer[],
-        int f, int w, int P, int Z)
+		int f, int w, int P, int Z)
 {
-        char *string;
-        int itt, count = 0;
+	char *string;
+	int itt, count = 0;
 
-        UNUSED(buffer);
-        UNUSED(f);
-        UNUSED(w);
-        UNUSED(Z);
+	UNUSED(buffer);
+	UNUSED(f);
+	UNUSED(w);
+	UNUSED(Z);
 
-        string = va_arg(var_types, char *);
+	string = va_arg(var_types, char *);
 
-        if (string == NULL)
-        {
-                UNUSED(P);
+	if (string == NULL)
+	{
+		UNUSED(P);
 
-                string = ")Null(";
-        }
-        for (itt = 0; string[itt]; itt++)
-                ;
+		string = ")Null(";
+	}
+	for (itt = 0; string[itt]; itt++)
+		;
 
-        for (itt = itt - 1; itt >= 0; itt--)
-        {
-                char ex_char = string[itt];
+	for (itt = itt - 1; itt >= 0; itt--)
+	{
+		char ex_char = string[itt];
 
-                write(1, &ex_char, 1);
-                count++;
-        }
-        return (count);
+		write(1, &ex_char, 1);
+		count++;
+	}
+	return (count);
 }
 /**
  * print_rot13string - Print a string in rot13.

@@ -86,6 +86,5 @@ int append_hexa_code(char code, char buffer[], int i);
 int is_digit(char c);
 long int convert_size_number(long int N, int Z);
 long int convert_size_unsgnd(unsigned long int N, int Z);
-int _putchar(char c);
 #endif /* MAIN_H */
 
