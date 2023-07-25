@@ -66,7 +66,7 @@ int get_width(const char *format, int *itt, va_list arguments);
 int get_precision(const char *format, int *itt, va_list arguments);
 int get_size(const char *format, int *itt);
 int print_reverse(va_list var_types, char buffer[],
-		int f, int w, int Prec, int Z);
+		int f, int w, int P, int Z);
 int print_rot13string(va_list var_types, char buffer[],
 		int f, int w, int P, int Z);
 int handle_write_char(char c, char buffer[],

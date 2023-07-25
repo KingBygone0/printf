@@ -103,44 +103,36 @@ int print_non_printable(va_list var_types, char buffer[],
  * Return: Numbers of chars printed
  */
 int print_reverse(va_list var_types, char buffer[],
-	int f, int w, int Prec, int Z)
+        int f, int w, int P, int Z)
 {
-	char *string;
-	int i, count = 0;
-	char z;
+        char *string;
+        int itt, count = 0;
 
-	UNUSED(buffer);
-	UNUSED(f);
-	UNUSED(w);
-	UNUSED(Z);
+        UNUSED(buffer);
+        UNUSED(f);
+        UNUSED(w);
+        UNUSED(Z);
 
-	string = va_arg(var_types, char *);
+        string = va_arg(var_types, char *);
 
-	if (string == NULL)
-	{
-		UNUSED(Prec);
-		string = ")Null(";
-	}
+        if (string == NULL)
+        {
+                UNUSED(P);
 
-	/*Calculate the length of the string*/
-	for (i = 0; string[i]; i++)
-		;
+                string = ")Null(";
+        }
+        for (itt = 0; string[itt]; itt++)
+                ;
 
-	/* Adjust precision if it exceeds the length of the string*/
-	if (Prec > i)
-	Prec = i;
+        for (itt = itt - 1; itt >= 0; itt--)
+        {
+                char ex_char = string[itt];
 
-	/* Print the reversed string up to the specified precision*/
-	for (i = Prec - 1; i >= 0; i--)
-	{
-		z = string[i];
-		_putchar(z); /*Assuming you want to print to standard output (stdout)*/
-		count++;
-	}
-
-	return (count);
+                write(1, &ex_char, 1);
+                count++;
+        }
+        return (count);
 }
-
 /**
  * print_rot13string - Print a string in rot13.
  * @var_types: Lista of arguments
